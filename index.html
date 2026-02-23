@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>טעימה מהדרך – מבוא מוזמן לעולמה של הדולה</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Hebrew:wght@300;400;600&family=Assistant:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blush: #F5EBE4;
+      --blush-mid: #EDD8CC;
+      --rose: #C4785A;
+      --rose-dark: #9B4E35;
+      --rose-light: #D99078;
+      --warm-white: #FDF8F4;
+      --text: #3D2218;
+      --mid: #7A4A35;
+      --soft: #C8A898;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--warm-white);
+      color: var(--text);
+      font-family: 'Assistant', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      background:
+        radial-gradient(ellipse at 80% 20%, rgba(196,120,90,0.18) 0%, transparent 55%),
+        radial-gradient(ellipse at 10% 80%, rgba(237,216,204,0.6) 0%, transparent 50%),
+        var(--warm-white);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 24px 60px;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    /* Decorative circles */
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 360px; height: 360px;
+      border-radius: 50%;
+      border: 1px solid rgba(196,120,90,0.15);
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -60px; left: -60px;
+      width: 280px; height: 280px;
+      border-radius: 50%;
+      border: 1px solid rgba(196,120,90,0.12);
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(196,120,90,0.12);
+      border: 1px solid rgba(196,120,90,0.3);
+      color: var(--rose-dark);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      padding: 8px 20px;
+      border-radius: 50px;
+      margin-bottom: 28px;
+      animation: fadeUp 0.7s ease both;
+    }
+
+    .hero-title {
+      font-family: 'Noto Serif Hebrew', serif;
+      font-size: clamp(48px, 10vw, 88px);
+      font-weight: 300;
+      color: var(--rose-dark);
+      line-height: 1.1;
+      margin-bottom: 10px;
+      animation: fadeUp 0.7s 0.1s ease both;
+    }
+
+    .hero-subtitle-cursive {
+      font-family: 'Noto Serif Hebrew', serif;
+      font-size: clamp(18px, 4vw, 28px);
+      font-weight: 300;
+      color: var(--mid);
+      font-style: italic;
+      margin-bottom: 36px;
+      animation: fadeUp 0.7s 0.2s ease both;
+    }
+
+    .hero-desc {
+      max-width: 600px;
+      font-size: clamp(16px, 2.5vw, 20px);
+      font-weight: 300;
+      color: var(--text);
+      line-height: 1.8;
+      margin-bottom: 12px;
+      animation: fadeUp 0.7s 0.3s ease both;
+    }
+
+    .hero-note {
+      font-size: 14px;
+      color: var(--soft);
+      margin-bottom: 48px;
+      animation: fadeUp 0.7s 0.35s ease both;
+    }
+
+    /* ── DETAILS CARDS ── */
+    .details-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      justify-content: center;
+      margin-bottom: 52px;
+      animation: fadeUp 0.7s 0.4s ease both;
+    }
+
+    .detail-card {
+      background: white;
+      border: 1px solid var(--blush-mid);
+      border-radius: 16px;
+      padding: 18px 28px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 2px 16px rgba(196,120,90,0.08);
+    }
+
+    .detail-card .icon { font-size: 22px; }
+    .detail-card .info { text-align: right; }
+    .detail-card .info-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--soft);
+      margin-bottom: 2px;
+    }
+    .detail-card .info-val {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: linear-gradient(135deg, var(--rose), var(--rose-light));
+      color: white;
+      padding: 18px 48px;
+      border-radius: 50px;
+      font-size: 18px;
+      font-weight: 700;
+      font-family: 'Assistant', sans-serif;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all 0.3s ease;
+      animation: fadeUp 0.7s 0.5s ease both;
+      box-shadow: 0 8px 30px rgba(196,120,90,0.3);
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 50px rgba(196,120,90,0.45);
+      background: linear-gradient(135deg, var(--rose-dark), var(--rose));
+    }
+
+    /* ── DIVIDER ── */
+    .section-divider {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      max-width: 500px;
+      margin: 0 auto 60px;
+      padding: 0 24px;
+    }
+    .section-divider .line {
+      flex: 1;
+      height: 1px;
+      background: var(--blush-mid);
+    }
+    .section-divider .gem { color: var(--rose); font-size: 16px; }
+
+    /* ── FORM SECTION ── */
+    .form-wrap {
+      background: linear-gradient(160deg, #3D2218 0%, #5C3020 100%);
+      padding: 90px 24px 100px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .form-wrap::before {
+      content: '';
+      position: absolute;
+      top: -120px; right: -120px;
+      width: 450px; height: 450px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(196,120,90,0.2) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .form-wrap::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; left: -80px;
+      width: 350px; height: 350px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(237,216,204,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .form-inner {
+      max-width: 520px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+      text-align: center;
+    }
+
+    .form-title {
+      font-family: 'Noto Serif Hebrew', serif;
+      font-size: clamp(28px, 5vw, 42px);
+      font-weight: 300;
+      color: var(--warm-white);
+      margin-bottom: 12px;
+    }
+
+    .form-sub {
+      font-size: 15px;
+      color: rgba(237,216,204,0.65);
+      font-weight: 300;
+      margin-bottom: 48px;
+      line-height: 1.7;
+    }
+
+    .form-fields {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      text-align: right;
+    }
+
+    .field-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .field-wrap label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: rgba(200,168,152,0.8);
+    }
+
+    .field-wrap input {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(200,168,152,0.2);
+      border-radius: 12px;
+      padding: 15px 18px;
+      color: var(--warm-white);
+      font-family: 'Assistant', sans-serif;
+      font-size: 16px;
+      outline: none;
+      transition: all 0.3s;
+      direction: rtl;
+      width: 100%;
+    }
+
+    .field-wrap input::placeholder { color: rgba(200,168,152,0.35); }
+    .field-wrap input:focus {
+      border-color: var(--rose-light);
+      background: rgba(255,255,255,0.1);
+      box-shadow: 0 0 0 3px rgba(196,120,90,0.2);
+    }
+
+    .submit-btn {
+      width: 100%;
+      margin-top: 8px;
+      padding: 18px;
+      background: linear-gradient(135deg, var(--rose), var(--rose-light));
+      border: none;
+      border-radius: 50px;
+      color: white;
+      font-family: 'Noto Serif Hebrew', serif;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 50px rgba(196,120,90,0.5);
+      background: linear-gradient(135deg, var(--rose-dark), var(--rose));
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .privacy-note {
+      margin-top: 16px;
+      font-size: 12px;
+      color: rgba(200,168,152,0.4);
+      text-align: center;
+    }
+
+    /* ── SUCCESS ── */
+    .success-box {
+      display: none;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(200,168,152,0.2);
+      border-radius: 20px;
+      padding: 60px 40px;
+      text-align: center;
+      animation: fadeUp 0.6s ease both;
+    }
+    .success-box.show { display: block; }
+    .success-box .s-icon { font-size: 56px; margin-bottom: 20px; }
+    .success-box h3 {
+      font-family: 'Noto Serif Hebrew', serif;
+      font-size: 28px;
+      font-weight: 300;
+      color: var(--warm-white);
+      margin-bottom: 10px;
+    }
+    .success-box p {
+      color: rgba(200,168,152,0.7);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    /* ── ERROR ── */
+    .error-msg {
+      display: none;
+      background: rgba(196,60,60,0.15);
+      border: 1px solid rgba(196,60,60,0.3);
+      border-radius: 12px;
+      padding: 14px 18px;
+      color: #ffaaaa;
+      font-size: 14px;
+      margin-top: 12px;
+      text-align: center;
+    }
+    .error-msg.show { display: block; }
+
+    /* ── FOOTER ── */
+    .footer {
+      background: #2C1810;
+      padding: 32px 24px;
+      text-align: center;
+    }
+    .footer-names {
+      font-family: 'Noto Serif Hebrew', serif;
+      font-size: 17px;
+      font-weight: 300;
+      color: rgba(237,216,204,0.8);
+      margin-bottom: 8px;
+    }
+    .footer-contacts {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .footer-contacts a {
+      color: rgba(200,168,152,0.55);
+      font-size: 13px;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .footer-contacts a:hover { color: var(--rose-light); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .hero { padding: 60px 20px 50px; }
+      .details-row { gap: 10px; }
+      .detail-card { padding: 14px 18px; }
+      .form-wrap { padding: 60px 20px 70px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-badge">קורס חדש · אפריל–יוני 2025</div>
+  <h1 class="hero-title">טעימה מהדרך...</h1>
+  <p class="hero-subtitle-cursive">מבוא מוזמן לעולמה של הדולה</p>
+  <p class="hero-desc">
+    סדרת מפגשים אינטימית לנשים ללא ניסיון,<br>
+    שמבקשות לגעת בעולמה של הדולה<br>
+    דרך חוויה, ידע ונוכחות נשית.
+  </p>
+  <p class="hero-note">* קורס ללא הכשרה מקצועית *</p>
+
+  <div class="details-row">
+    <div class="detail-card">
+      <span class="icon">🤍</span>
+      <div class="info">
+        <div class="info-label">מפגשים</div>
+        <div class="info-val">שישה מפגשים פרונטליים</div>
+      </div>
+    </div>
+    <div class="detail-card">
+      <span class="icon">🕐</span>
+      <div class="info">
+        <div class="info-label">שעות</div>
+        <div class="info-val">09:00 – 14:30</div>
+      </div>
+    </div>
+    <div class="detail-card">
+      <span class="icon">🌸</span>
+      <div class="info">
+        <div class="info-label">תקופה</div>
+        <div class="info-val">אפריל – יוני</div>
+      </div>
+    </div>
+    <div class="detail-card">
+      <span class="icon">👥</span>
+      <div class="info">
+        <div class="info-label">קבוצה</div>
+        <div class="info-val">אינטימית · 10 משתתפות לפחות</div>
+      </div>
+    </div>
+  </div>
+
+  <button class="cta-btn" onclick="document.getElementById('form-section').scrollIntoView({behavior:'smooth'})">
+    ♡ &nbsp; אני רוצה לשמוע עוד
+  </button>
+</section>
+
+<div class="section-divider">
+  <div class="line"></div>
+  <span class="gem">✦</span>
+  <div class="line"></div>
+</div>
+
+<!-- ── FORM ── -->
+<section class="form-wrap" id="form-section">
+  <div class="form-inner">
+    <h2 class="form-title">השאירי פרטים</h2>
+    <p class="form-sub">
+      ורונית תחזור אלייך עם כל הפרטים על הקורס,<br>
+      תאריכים ומחיר.
+    </p>
+
+    <form id="leadForm">
+      <div class="form-fields">
+        <div class="field-wrap">
+          <label>שם מלא</label>
+          <input type="text" id="f-name" placeholder="שמך המלא" required />
+        </div>
+        <div class="field-wrap">
+          <label>טלפון</label>
+          <input type="tel" id="f-phone" placeholder="050-0000000" required />
+        </div>
+        <div class="field-wrap">
+          <label>אימייל</label>
+          <input type="email" id="f-email" placeholder="your@email.com" required />
+        </div>
+      </div>
+      <br>
+      <button type="submit" class="submit-btn" id="submitBtn">
+        שלחי לי פרטים ✦
+      </button>
+      <div class="error-msg" id="errorMsg">
+        אופס, משהו לא עבד. אנא נסי שוב או צרי קשר ישירות.
+      </div>
+      <p class="privacy-note">הפרטים נשמרים אצלנו בלבד ולא יועברו לצד שלישי.</p>
+    </form>
+
+    <div class="success-box" id="successBox">
+      <div class="s-icon">🌸</div>
+      <h3>תודה! קיבלנו את פרטייך</h3>
+      <p>רונית תחזור אלייך בהקדם<br>עם כל הפרטים על הקורס.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <p class="footer-names">רונית קופליס &nbsp;♡&nbsp; עדי גון קויפר</p>
+  <div class="footer-contacts">
+    <a href="tel:0507871737">050-787-1737</a>
+    <a href="mailto:ronitmakomdulot@gmail.com">ronitmakomdulot@gmail.com</a>
+    <a href="https://ronitkopelis.co.il" target="_blank">ronitkopelis.co.il</a>
+  </div>
+</footer>
+
+<script>
+  /*
+  ══════════════════════════════════════════════════════
+  HOW TO CONNECT TO GOOGLE SHEETS:
+  
+  1. Open Google Sheets and create a new sheet named "Leads"
+     with columns: Timestamp | Name | Phone | Email
+  
+  2. In the sheet, go to Extensions → Apps Script
+  
+  3. Paste this code and click Deploy → New deployment → Web app
+     (Execute as: Me, Who has access: Anyone)
+  
+  function doPost(e) {
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Leads");
+    var data = JSON.parse(e.postData.contents);
+    sheet.appendRow([
+      new Date().toLocaleString('he-IL'),
+      data.name,
+      data.phone,
+      data.email
+    ]);
+    return ContentService
+      .createTextOutput(JSON.stringify({result: "success"}))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+  
+  4. Copy the Web App URL and paste it below where it says PASTE_YOUR_APPS_SCRIPT_URL_HERE
+  ══════════════════════════════════════════════════════
+  */
+
+  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxhOKSjyom6qOsIRfSD20aaZ2tmbPnUpO8FwKtlNaiH02dcQSMKKlTwyQ5ihQuVSLoCMw/exec";
+
+  document.getElementById('leadForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const name  = document.getElementById('f-name').value.trim();
+    const phone = document.getElementById('f-phone').value.trim();
+    const email = document.getElementById('f-email').value.trim();
+
+    if (!name || !phone || !email) return;
+
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.textContent = 'שולחת...';
+
+    const errorMsg = document.getElementById('errorMsg');
+    errorMsg.classList.remove('show');
+
+    // If no URL configured yet – just show success (for testing)
+    if (APPS_SCRIPT_URL === "https://script.google.com/macros/s/AKfycbxhOKSjyom6qOsIRfSD20aaZ2tmbPnUpO8FwKtlNaiH02dcQSMKKlTwyQ5ihQuVSLoCMw/exec") {
+      showSuccess();
+      return;
+    }
+
+    try {
+      await fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, phone, email })
+      });
+      showSuccess();
+    } catch (err) {
+      btn.disabled = false;
+      btn.textContent = 'שלחי לי פרטים ✦';
+      errorMsg.classList.add('show');
+    }
+  });
+
+  function showSuccess() {
+    document.getElementById('leadForm').style.display = 'none';
+    document.getElementById('successBox').classList.add('show');
+  }
+</script>
+
+</body>
+</html>
