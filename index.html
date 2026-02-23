@@ -30,7 +30,6 @@
       overflow-x: hidden;
     }
 
-    /* ── HERO ── */
     .hero {
       min-height: 100vh;
       background:
@@ -47,7 +46,6 @@
       text-align: center;
     }
 
-    /* Decorative circles */
     .hero::before {
       content: '';
       position: absolute;
@@ -117,7 +115,6 @@
       animation: fadeUp 0.7s 0.35s ease both;
     }
 
-    /* ── DETAILS CARDS ── */
     .details-row {
       display: flex;
       flex-wrap: wrap;
@@ -179,7 +176,6 @@
       background: linear-gradient(135deg, var(--rose-dark), var(--rose));
     }
 
-    /* ── DIVIDER ── */
     .section-divider {
       display: flex;
       align-items: center;
@@ -195,7 +191,6 @@
     }
     .section-divider .gem { color: var(--rose); font-size: 16px; }
 
-    /* ── FORM SECTION ── */
     .form-wrap {
       background: linear-gradient(160deg, #3D2218 0%, #5C3020 100%);
       padding: 90px 24px 100px;
@@ -324,7 +319,6 @@
       text-align: center;
     }
 
-    /* ── SUCCESS ── */
     .success-box {
       display: none;
       background: rgba(255,255,255,0.05);
@@ -332,9 +326,8 @@
       border-radius: 20px;
       padding: 60px 40px;
       text-align: center;
-      animation: fadeUp 0.6s ease both;
     }
-    .success-box.show { display: block; }
+    .success-box.show { display: block; animation: fadeUp 0.6s ease both; }
     .success-box .s-icon { font-size: 56px; margin-bottom: 20px; }
     .success-box h3 {
       font-family: 'Noto Serif Hebrew', serif;
@@ -349,7 +342,6 @@
       line-height: 1.7;
     }
 
-    /* ── ERROR ── */
     .error-msg {
       display: none;
       background: rgba(196,60,60,0.15);
@@ -363,7 +355,6 @@
     }
     .error-msg.show { display: block; }
 
-    /* ── FOOTER ── */
     .footer {
       background: #2C1810;
       padding: 32px 24px;
@@ -390,13 +381,11 @@
     }
     .footer-contacts a:hover { color: var(--rose-light); }
 
-    /* ── ANIMATIONS ── */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(18px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* ── RESPONSIVE ── */
     @media (max-width: 600px) {
       .hero { padding: 60px 20px 50px; }
       .details-row { gap: 10px; }
@@ -407,7 +396,6 @@
 </head>
 <body>
 
-<!-- ── HERO ── -->
 <section class="hero">
   <div class="hero-badge">קורס חדש · אפריל–יוני 2025</div>
   <h1 class="hero-title">טעימה מהדרך...</h1>
@@ -461,7 +449,6 @@
   <div class="line"></div>
 </div>
 
-<!-- ── FORM ── -->
 <section class="form-wrap" id="form-section">
   <div class="form-inner">
     <h2 class="form-title">השאירי פרטים</h2>
@@ -503,7 +490,6 @@
   </div>
 </section>
 
-<!-- ── FOOTER ── -->
 <footer class="footer">
   <p class="footer-names">רונית קופליס &nbsp;♡&nbsp; עדי גון קויפר</p>
   <div class="footer-contacts">
@@ -514,37 +500,7 @@
 </footer>
 
 <script>
-  /*
-  ══════════════════════════════════════════════════════
-  HOW TO CONNECT TO GOOGLE SHEETS:
-  
-  1. Open Google Sheets and create a new sheet named "Leads"
-     with columns: Timestamp | Name | Phone | Email
-  
-  2. In the sheet, go to Extensions → Apps Script
-  
-  3. Paste this code and click Deploy → New deployment → Web app
-     (Execute as: Me, Who has access: Anyone)
-  
-  function doPost(e) {
-    var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Leads");
-    var data = JSON.parse(e.postData.contents);
-    sheet.appendRow([
-      new Date().toLocaleString('he-IL'),
-      data.name,
-      data.phone,
-      data.email
-    ]);
-    return ContentService
-      .createTextOutput(JSON.stringify({result: "success"}))
-      .setMimeType(ContentService.MimeType.JSON);
-  }
-  
-  4. Copy the Web App URL and paste it below where it says PASTE_YOUR_APPS_SCRIPT_URL_HERE
-  ══════════════════════════════════════════════════════
-  */
-
-  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxhOKSjyom6qOsIRfSD20aaZ2tmbPnUpO8FwKtlNaiH02dcQSMKKlTwyQ5ihQuVSLoCMw/exec";
+  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbztDsSt9mVSWFRWK2xgdx2a8S7kK7c2WlOmvwBlxzjsVNk1XLzBZNEGgQK40dtvFN3Hbw/exec";
 
   document.getElementById('leadForm').addEventListener('submit', async function(e) {
     e.preventDefault();
@@ -559,32 +515,30 @@
     btn.disabled = true;
     btn.textContent = 'שולחת...';
 
-    const errorMsg = document.getElementById('errorMsg');
-    errorMsg.classList.remove('show');
+    document.getElementById('errorMsg').classList.remove('show');
 
-    // If no URL configured yet – just show success (for testing)
-    if (APPS_SCRIPT_URL === "https://script.google.com/macros/s/AKfycbxhOKSjyom6qOsIRfSD20aaZ2tmbPnUpO8FwKtlNaiH02dcQSMKKlTwyQ5ihQuVSLoCMw/exec") {
+    console.log('Sending to Apps Script:', { name, phone, email });
+
+    try {
+      const formData = new FormData();
+      formData.append('name', name);
+      formData.append('phone', phone);
+      formData.append('email', email);
+
+      await fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        body: formData
+      });
+
+      console.log('Fetch completed — check Google Sheets');
       showSuccess();
-      return;
-    }
 
-try {
-  const form = new FormData();
-  form.append('name', name);
-  form.append('phone', phone);
-  form.append('email', email);
-
-  await fetch(APPS_SCRIPT_URL, {
-    method: 'POST',
-    mode: 'no-cors',
-    body: form
-  });
-  showSuccess();
-}
     } catch (err) {
+      console.error('Fetch error:', err);
       btn.disabled = false;
       btn.textContent = 'שלחי לי פרטים ✦';
-      errorMsg.classList.add('show');
+      document.getElementById('errorMsg').classList.add('show');
     }
   });
 
