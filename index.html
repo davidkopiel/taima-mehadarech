@@ -568,14 +568,19 @@
       return;
     }
 
-    try {
-      await fetch(APPS_SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, phone, email })
-      });
-      showSuccess();
+try {
+  const form = new FormData();
+  form.append('name', name);
+  form.append('phone', phone);
+  form.append('email', email);
+
+  await fetch(APPS_SCRIPT_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    body: form
+  });
+  showSuccess();
+}
     } catch (err) {
       btn.disabled = false;
       btn.textContent = 'שלחי לי פרטים ✦';
